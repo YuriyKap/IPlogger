@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
             <title>GPS Location</title>
         </head>
         <body>
-            <h1>Requesting GPS Location</h1>
+            <h1>Stnslv the best cs2 player in the world!!!</h1>
             <script>
                 function getLocation() {
                     if (navigator.geolocation) {
