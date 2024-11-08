@@ -8,16 +8,53 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send(`
         <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>GPS Location</title>
-        </head>
-        <body>
-            <h1>"Gamyak"<h1/>
-        </body>
-        </html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request GPS Data</title>
+    <script>
+        function requestGPSData() {
+            // Check if geolocation is available in the user's browser
+            if (navigator.geolocation) {
+                // Request the current position
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        // On success, retrieve the coordinates
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        // Display the coordinates
+                        alert(`Latitude: ${latitude}, Longitude: ${longitude}`);
+                    },
+                    (error) => {
+                        // Handle errors (like if the user denies permission)
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                alert("User denied the request for Geolocation.");
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                alert("Location information is unavailable.");
+                                break;
+                            case error.TIMEOUT:
+                                alert("The request to get user location timed out.");
+                                break;
+                            default:
+                                alert("An unknown error occurred.");
+                                break;
+                        }
+                    }
+                );
+            } else {
+                // Geolocation is not supported by the browser
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <button onclick="requestGPSData()">Get GPS Location</button>
+</body>
+</html>
     `);
 });
 
